@@ -14,7 +14,7 @@ export default function SupplierDashboard() {
           <span className="font-display font-semibold text-cream-50">Producent</span>
         </div>
         <nav className="space-y-1">
-          {['Mijn Wijnen', 'Bestellingen', 'Profiel'].map(t => (
+          {['Mijn wijnen', 'Bestellingen', 'Profiel'].map(t => (
             <div key={t} className="px-3 py-2.5 rounded-lg text-sm font-sans text-cream-300 hover:bg-noir-700 cursor-pointer transition-colors">{t}</div>
           ))}
         </nav>

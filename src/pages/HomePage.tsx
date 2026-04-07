@@ -33,10 +33,10 @@ export default function HomePage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link to="/producers" className="btn-gold text-base px-8 py-4 gap-2">
-                Ontdek Wijnhuizen <ArrowRight className="w-5 h-5" />
+                Ontdek wijnhuizen <ArrowRight className="w-5 h-5" />
               </Link>
               <Link to="/for-producers" className="btn-outline text-base px-8 py-4">
-                Ik ben Producent
+                Ik ben producent
               </Link>
             </div>
           </div>
@@ -48,7 +48,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <p className="text-gold-500 font-sans text-sm tracking-widest uppercase mb-3">Hoe het werkt</p>
-            <h2 className="section-title mb-4">Rechtstreeks van de Producent</h2>
+            <h2 className="section-title mb-4">Rechtstreeks van de producent</h2>
             <div className="gold-divider mx-auto" />
           </div>
           <div className="grid md:grid-cols-3 gap-8">
@@ -91,7 +91,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <p className="text-gold-500 font-sans text-sm tracking-widest uppercase mb-3">Ervaringen</p>
-            <h2 className="section-title mb-4">Wat Onze Klanten Zeggen</h2>
+            <h2 className="section-title mb-4">Wat onze klanten zeggen</h2>
             <div className="gold-divider mx-auto" />
           </div>
           <div className="grid md:grid-cols-3 gap-8">
@@ -114,7 +114,7 @@ export default function HomePage() {
       {/* CTA */}
       <section className="py-24 bg-noir-800/60">
         <div className="max-w-3xl mx-auto px-4 text-center">
-          <h2 className="section-title mb-4">Klaar om te Ontdekken?</h2>
+          <h2 className="section-title mb-4">Klaar om te ontdekken?</h2>
           <p className="text-cream-200/60 font-sans mb-10 leading-relaxed">Sluit u aan bij duizenden wijnliefhebbers en ontdek het verhaal achter elk glas.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/producers" className="btn-gold text-base px-8 py-4 gap-2">

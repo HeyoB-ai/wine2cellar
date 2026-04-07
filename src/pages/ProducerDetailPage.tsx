@@ -45,7 +45,7 @@ export default function ProducerDetailPage() {
           <div className="lg:col-span-2 space-y-12">
             {/* About */}
             <section>
-              <h2 className="font-display text-2xl font-bold text-cream-50 mb-2">Over het Wijnhuis</h2>
+              <h2 className="font-display text-2xl font-bold text-cream-50 mb-2">Over het wijnhuis</h2>
               <div className="gold-divider mb-6" />
               <p className="text-cream-200/70 font-body leading-relaxed text-base mb-8">{producer.description}</p>
               <div className="grid sm:grid-cols-2 gap-4">
@@ -64,7 +64,7 @@ export default function ProducerDetailPage() {
 
             {/* Wines */}
             <section>
-              <h2 className="font-display text-2xl font-bold text-cream-50 mb-2">Onze Wijnen</h2>
+              <h2 className="font-display text-2xl font-bold text-cream-50 mb-2">Onze wijnen</h2>
               <div className="gold-divider mb-6" />
               <div className="grid sm:grid-cols-2 gap-6">
                 {producer.wines.map(wine => (
@@ -107,7 +107,7 @@ export default function ProducerDetailPage() {
 
             {/* Info */}
             <div className="card-dark p-6">
-              <h3 className="font-display text-lg font-semibold text-cream-50 mb-4">Wijnhuis Info</h3>
+              <h3 className="font-display text-lg font-semibold text-cream-50 mb-4">Wijnhuis info</h3>
               <table className="w-full text-sm font-sans">
                 <tbody className="divide-y divide-noir-700">
                   {[

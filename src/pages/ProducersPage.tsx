@@ -79,7 +79,7 @@ export default function ProducersPage() {
                         ))}
                       </div>
                     )}
-                    <Link to={`/producer/${p.id}`} className="btn-wine w-full text-sm py-2.5 justify-center">Bekijk Wijnhuis</Link>
+                    <Link to={`/producer/${p.id}`} className="btn-wine w-full text-sm py-2.5 justify-center">Bekijk wijnhuis</Link>
                   </div>
                 </div>
               ))}

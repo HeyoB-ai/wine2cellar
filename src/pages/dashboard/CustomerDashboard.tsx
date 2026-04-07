@@ -11,7 +11,7 @@ export default function CustomerDashboard() {
           <div className="w-8 h-8 bg-wine-800 rounded-lg flex items-center justify-center">
             <LayoutDashboard className="w-5 h-5 text-gold-400" />
           </div>
-          <span className="font-display font-semibold text-cream-50">Mijn Account</span>
+          <span className="font-display font-semibold text-cream-50">Mijn account</span>
         </div>
         <nav className="space-y-1">
           {['Favorieten', 'Bestellingen', 'Mijn profiel'].map(t => (
@@ -21,7 +21,7 @@ export default function CustomerDashboard() {
         <div className="pt-8">
           <div className="card-dark p-3 mb-3">
             <p className="text-xs text-cream-200/60 font-sans truncate">{profile?.full_name || profile?.email}</p>
-            <p className="text-xs text-gold-500 font-sans">Klant</p>
+            <p className="text-xs text-gold-500 font-sans">klant</p>
           </div>
           <button onClick={signOut} className="w-full text-xs text-cream-200/40 hover:text-wine-400 font-sans py-1 transition-colors">Uitloggen</button>
         </div>

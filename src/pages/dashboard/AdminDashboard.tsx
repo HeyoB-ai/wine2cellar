@@ -30,7 +30,7 @@ export default function AdminDashboard() {
         <div className="mt-auto pt-8">
           <div className="card-dark p-3 mb-3">
             <p className="text-xs text-cream-200/60 font-sans truncate">{profile?.full_name || 'Admin'}</p>
-            <p className="text-xs text-gold-500 font-sans">Beheerder</p>
+            <p className="text-xs text-gold-500 font-sans">beheerder</p>
           </div>
           <button onClick={signOut} className="w-full text-xs text-cream-200/40 hover:text-wine-400 font-sans py-1 transition-colors">Uitloggen</button>
         </div>

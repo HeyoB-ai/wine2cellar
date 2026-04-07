@@ -30,7 +30,7 @@ export default function Footer() {
           <div>
             <h4 className="font-display text-sm font-semibold text-cream-50 uppercase tracking-widest mb-4">Navigatie</h4>
             <ul className="space-y-2.5">
-              {[['/', 'Home'], ['/producers', 'Wijnhuizen'], ['/for-producers', 'Voor Producenten'], ['/contact', 'Contact'], ['/login', 'Inloggen']].map(([to, label]) => (
+              {[['/', 'Home'], ['/producers', 'Wijnhuizen'], ['/for-producers', 'Voor producenten'], ['/contact', 'Contact'], ['/login', 'Inloggen']].map(([to, label]) => (
                 <li key={to}><Link to={to} className="text-sm text-cream-200/70 hover:text-gold-400 font-sans transition-colors">{label}</Link></li>
               ))}
             </ul>

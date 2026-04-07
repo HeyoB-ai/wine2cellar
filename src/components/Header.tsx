@@ -15,7 +15,7 @@ export default function Header() {
     ? '/dashboard/supplier'
     : '/dashboard/customer';
 
-  const roleLabel = profile?.role === 'admin' ? 'Beheerder' : profile?.role === 'supplier' ? 'Producent' : 'Klant';
+  const roleLabel = profile?.role === 'admin' ? 'beheerder' : profile?.role === 'supplier' ? 'producent' : 'klant';
 
   async function handleSignOut() {
     await signOut();
@@ -26,7 +26,7 @@ export default function Header() {
   const navLinks = [
     { to: '/', label: 'Home' },
     { to: '/producers', label: 'Wijnhuizen' },
-    { to: '/for-producers', label: 'Voor Producenten' },
+    { to: '/for-producers', label: 'Voor producenten' },
     { to: '/contact', label: 'Contact' },
   ];
 
