@@ -1,0 +1,93 @@
+import { useState } from 'react';
+import { useAuth } from '../../context/AuthContext';
+import { producers } from '../../data/producers';
+import { Users, Package, TrendingUp, Grape, LayoutDashboard } from 'lucide-react';
+
+const TABS = ['Overzicht', 'Producenten', 'Gebruikers', 'Bestellingen'] as const;
+
+export default function AdminDashboard() {
+  const { profile, signOut } = useAuth();
+  const [tab, setTab] = useState<typeof TABS[number]>('Overzicht');
+
+  return (
+    <div className="min-h-screen bg-noir-900 flex">
+      {/* Sidebar */}
+      <aside className="w-64 shrink-0 bg-noir-800 border-r border-noir-700 p-6">
+        <div className="flex items-center gap-2.5 mb-8">
+          <div className="w-8 h-8 bg-wine-800 rounded-lg flex items-center justify-center">
+            <LayoutDashboard className="w-5 h-5 text-gold-400" />
+          </div>
+          <span className="font-display font-semibold text-cream-50">Admin</span>
+        </div>
+        <nav className="space-y-1">
+          {TABS.map(t => (
+            <button key={t} onClick={() => setTab(t)}
+              className={`w-full text-left px-3 py-2.5 rounded-lg text-sm font-sans transition-colors ${tab === t ? 'bg-wine-800 text-cream-50' : 'text-cream-300 hover:bg-noir-700'}`}>
+              {t}
+            </button>
+          ))}
+        </nav>
+        <div className="mt-auto pt-8">
+          <div className="card-dark p-3 mb-3">
+            <p className="text-xs text-cream-200/60 font-sans truncate">{profile?.full_name || 'Admin'}</p>
+            <p className="text-xs text-gold-500 font-sans">Beheerder</p>
+          </div>
+          <button onClick={signOut} className="w-full text-xs text-cream-200/40 hover:text-wine-400 font-sans py-1 transition-colors">Uitloggen</button>
+        </div>
+      </aside>
+
+      {/* Main */}
+      <main className="flex-1 p-8 overflow-auto">
+        <h1 className="font-display text-2xl font-bold text-cream-50 mb-8">{tab}</h1>
+
+        {tab === 'Overzicht' && (
+          <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-6">
+            {[
+              { icon: Grape, label: 'Producenten', value: producers.length, color: 'text-wine-400' },
+              { icon: Users, label: 'Klanten', value: '1.240', color: 'text-gold-400' },
+              { icon: TrendingUp, label: 'Omzet (mnd)', value: '€48.200', color: 'text-green-400' },
+              { icon: Package, label: 'Wijnen', value: producers.reduce((a, p) => a + p.wines.length, 0), color: 'text-blue-400' },
+            ].map(({ icon: Icon, label, value, color }) => (
+              <div key={label} className="card-dark p-6">
+                <Icon className={`w-6 h-6 ${color} mb-3`} />
+                <p className="font-display text-3xl font-bold text-cream-50 mb-1">{value}</p>
+                <p className="text-sm text-cream-200/60 font-sans">{label}</p>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {tab === 'Producenten' && (
+          <div className="card-dark overflow-hidden">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-noir-700">
+                  {['Naam', 'Regio', 'Land', 'Wijnen', 'Status'].map(h => (
+                    <th key={h} className="text-left px-6 py-4 text-xs font-sans font-semibold text-cream-200/40 uppercase tracking-wider">{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-noir-700">
+                {producers.map(p => (
+                  <tr key={p.id} className="hover:bg-noir-700/50 transition-colors">
+                    <td className="px-6 py-4 font-sans font-medium text-cream-100 text-sm">{p.name}</td>
+                    <td className="px-6 py-4 text-sm text-cream-200/60 font-sans">{p.region}</td>
+                    <td className="px-6 py-4 text-sm text-cream-200/60 font-sans">{p.country}</td>
+                    <td className="px-6 py-4 text-sm text-cream-200/60 font-sans">{p.wines.length}</td>
+                    <td className="px-6 py-4"><span className="inline-flex px-2.5 py-1 rounded-full text-xs bg-green-900/40 text-green-400 border border-green-800/50">Actief</span></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        {(tab === 'Gebruikers' || tab === 'Bestellingen') && (
+          <div className="card-dark p-16 text-center">
+            <p className="text-cream-200/40 font-sans text-sm">Nog geen {tab.toLowerCase()}.</p>
+          </div>
+        )}
+      </main>
+    </div>
+  );
+}
