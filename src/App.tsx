@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -9,9 +9,10 @@ import ForProducersPage from './pages/ForProducersPage';
 import ContactPage from './pages/ContactPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import LotsPage from './pages/LotsPage';
 import AdminDashboard from './pages/dashboard/AdminDashboard';
-import SupplierDashboard from './pages/dashboard/SupplierDashboard';
-import CustomerDashboard from './pages/dashboard/CustomerDashboard';
+import WijnhuisDashboard from './pages/dashboard/WijnhuisDashboard';
+import AfnemerDashboard from './pages/dashboard/AfnemerDashboard';
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route element={<Layout />}>
             <Route path="/" element={<HomePage />} />
+            <Route path="/partijen" element={<LotsPage />} />
             <Route path="/producers" element={<ProducersPage />} />
             <Route path="/producer/:id" element={<ProducerDetailPage />} />
             <Route path="/for-producers" element={<ForProducersPage />} />
@@ -30,12 +32,15 @@ export default function App() {
           <Route path="/dashboard/admin" element={
             <ProtectedRoute allowedRoles={['admin']}><AdminDashboard /></ProtectedRoute>
           } />
-          <Route path="/dashboard/supplier" element={
-            <ProtectedRoute allowedRoles={['supplier']}><SupplierDashboard /></ProtectedRoute>
+          <Route path="/dashboard/wijnhuis" element={
+            <ProtectedRoute allowedRoles={['wijnhuis']}><WijnhuisDashboard /></ProtectedRoute>
           } />
-          <Route path="/dashboard/customer" element={
-            <ProtectedRoute allowedRoles={['customer']}><CustomerDashboard /></ProtectedRoute>
+          <Route path="/dashboard/afnemer" element={
+            <ProtectedRoute allowedRoles={['afnemer']}><AfnemerDashboard /></ProtectedRoute>
           } />
+          {/* Legacy redirects */}
+          <Route path="/dashboard/supplier" element={<Navigate to="/dashboard/wijnhuis" replace />} />
+          <Route path="/dashboard/customer" element={<Navigate to="/dashboard/afnemer" replace />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

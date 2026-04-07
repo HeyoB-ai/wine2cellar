@@ -20,10 +20,10 @@ export default function ProducersPage() {
       {/* Hero */}
       <section className="bg-noir-800/60 py-20 border-b border-noir-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-gold-500 font-sans text-sm tracking-widest uppercase mb-3">Onze selectie</p>
+          <p className="text-gold-500 font-sans text-sm tracking-widest uppercase mb-3">Onze database</p>
           <h1 className="section-title mb-4">Wijnhuizen</h1>
           <div className="gold-divider mx-auto mb-6" />
-          <p className="text-cream-200/60 font-sans max-w-xl mx-auto">Ontdek de meest gerenommeerde wijnhuizen ter wereld, elk met een uniek verhaal en uitzonderlijke kwaliteit.</p>
+          <p className="text-cream-200/60 font-sans max-w-xl mx-auto">Ontdek wijnhuizen uit Frankrijk, Italië, Duitsland en Spanje die actief zijn op ons platform.</p>
         </div>
       </section>
 

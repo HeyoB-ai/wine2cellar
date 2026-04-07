@@ -26,8 +26,8 @@ export default function LoginPage() {
     setTimeout(() => {
       const role = profile?.role;
       if (role === 'admin') navigate('/dashboard/admin');
-      else if (role === 'supplier') navigate('/dashboard/supplier');
-      else navigate('/dashboard/customer');
+      else if (role === 'wijnhuis') navigate('/dashboard/wijnhuis');
+      else navigate('/dashboard/afnemer');
     }, 500);
   }
 

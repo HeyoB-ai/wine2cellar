@@ -3,7 +3,7 @@ import { useAuth } from '../../context/AuthContext';
 import { producers } from '../../data/producers';
 import { Users, Package, TrendingUp, Grape, LayoutDashboard } from 'lucide-react';
 
-const TABS = ['Overzicht', 'Producenten', 'Gebruikers', 'Bestellingen'] as const;
+const TABS = ['Overzicht', 'Wijnhuizen', 'Partijen', 'Aanvragen', 'Abonnementen'] as const;
 
 export default function AdminDashboard() {
   const { profile, signOut } = useAuth();
@@ -43,10 +43,10 @@ export default function AdminDashboard() {
         {tab === 'Overzicht' && (
           <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-6">
             {[
-              { icon: Grape, label: 'Producenten', value: producers.length, color: 'text-wine-400' },
-              { icon: Users, label: 'Klanten', value: '1.240', color: 'text-gold-400' },
-              { icon: TrendingUp, label: 'Omzet (mnd)', value: '€48.200', color: 'text-green-400' },
-              { icon: Package, label: 'Wijnen', value: producers.reduce((a, p) => a + p.wines.length, 0), color: 'text-blue-400' },
+              { icon: Grape, label: 'Wijnhuizen', value: producers.length, color: 'text-wine-400' },
+              { icon: Users, label: 'Afnemers', value: '0', color: 'text-gold-400' },
+              { icon: TrendingUp, label: 'Actieve partijen', value: '0', color: 'text-green-400' },
+              { icon: Package, label: 'Abonnementen', value: '0', color: 'text-blue-400' },
             ].map(({ icon: Icon, label, value, color }) => (
               <div key={label} className="card-dark p-6">
                 <Icon className={`w-6 h-6 ${color} mb-3`} />
@@ -57,12 +57,12 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        {tab === 'Producenten' && (
+        {tab === 'Wijnhuizen' && (
           <div className="card-dark overflow-hidden">
             <table className="w-full">
               <thead>
                 <tr className="border-b border-noir-700">
-                  {['Naam', 'Regio', 'Land', 'Wijnen', 'Status'].map(h => (
+                  {['Naam', 'Regio', 'Land', 'Abonnement', 'Status'].map(h => (
                     <th key={h} className="text-left px-6 py-4 text-xs font-sans font-semibold text-cream-200/40 uppercase tracking-wider">{h}</th>
                   ))}
                 </tr>
@@ -73,7 +73,7 @@ export default function AdminDashboard() {
                     <td className="px-6 py-4 font-sans font-medium text-cream-100 text-sm">{p.name}</td>
                     <td className="px-6 py-4 text-sm text-cream-200/60 font-sans">{p.region}</td>
                     <td className="px-6 py-4 text-sm text-cream-200/60 font-sans">{p.country}</td>
-                    <td className="px-6 py-4 text-sm text-cream-200/60 font-sans">{p.wines.length}</td>
+                    <td className="px-6 py-4"><span className="inline-flex px-2.5 py-1 rounded-full text-xs bg-noir-700 text-cream-400 border border-noir-600">Gratis</span></td>
                     <td className="px-6 py-4"><span className="inline-flex px-2.5 py-1 rounded-full text-xs bg-green-900/40 text-green-400 border border-green-800/50">Actief</span></td>
                   </tr>
                 ))}
@@ -82,7 +82,7 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        {(tab === 'Gebruikers' || tab === 'Bestellingen') && (
+        {(tab === 'Partijen' || tab === 'Aanvragen' || tab === 'Abonnementen') && (
           <div className="card-dark p-16 text-center">
             <p className="text-cream-200/40 font-sans text-sm">Nog geen {tab.toLowerCase()}.</p>
           </div>

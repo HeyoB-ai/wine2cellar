@@ -11,11 +11,15 @@ export default function Header() {
 
   const dashboardPath = profile?.role === 'admin'
     ? '/dashboard/admin'
-    : profile?.role === 'supplier'
-    ? '/dashboard/supplier'
-    : '/dashboard/customer';
+    : profile?.role === 'wijnhuis'
+    ? '/dashboard/wijnhuis'
+    : '/dashboard/afnemer';
 
-  const roleLabel = profile?.role === 'admin' ? 'beheerder' : profile?.role === 'supplier' ? 'producent' : 'klant';
+  const roleLabel = profile?.role === 'admin'
+    ? 'Beheerder'
+    : profile?.role === 'wijnhuis'
+    ? 'Wijnhuis'
+    : 'Afnemer';
 
   async function handleSignOut() {
     await signOut();
@@ -25,8 +29,9 @@ export default function Header() {
 
   const navLinks = [
     { to: '/', label: 'Home' },
+    { to: '/partijen', label: 'Aanbiedingen' },
     { to: '/producers', label: 'Wijnhuizen' },
-    { to: '/for-producers', label: 'Voor producenten' },
+    { to: '/for-producers', label: 'Voor wijnhuizen' },
     { to: '/contact', label: 'Contact' },
   ];
 

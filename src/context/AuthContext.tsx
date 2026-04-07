@@ -3,13 +3,22 @@ import type { Session, User } from '@supabase/supabase-js';
 import { supabase } from '../lib/supabase';
 import type { Profile, UserRole } from '../lib/supabase';
 
+interface SignUpOptions {
+  role: UserRole;
+  fullName: string;
+  companyName?: string;
+  buyerType?: 'particulier' | 'horeca';
+  companyKvk?: string;
+  phone?: string;
+}
+
 interface AuthContextType {
   user: User | null;
   session: Session | null;
   profile: Profile | null;
   loading: boolean;
   signIn: (email: string, password: string) => Promise<{ error: any }>;
-  signUp: (email: string, password: string, role: UserRole, fullName: string, companyName?: string) => Promise<{ error: any }>;
+  signUp: (email: string, password: string, options: SignUpOptions) => Promise<{ error: any }>;
   signOut: () => Promise<void>;
 }
 
@@ -49,7 +58,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return { error };
   }
 
-  async function signUp(email: string, password: string, role: UserRole, fullName: string, companyName?: string) {
+  async function signUp(email: string, password: string, options: SignUpOptions) {
+    const { role, fullName, companyName, buyerType, companyKvk, phone } = options;
     const { data, error } = await supabase.auth.signUp({ email, password });
     if (error) return { error };
     if (data.user) {
@@ -59,6 +69,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         role,
         full_name: fullName,
         company_name: companyName || null,
+        buyer_type: buyerType || null,
+        company_kvk: companyKvk || null,
+        phone: phone || null,
       });
     }
     return { error: null };
