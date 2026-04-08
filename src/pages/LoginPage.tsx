@@ -2,10 +2,12 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Wine, Eye, EyeOff, AlertCircle } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useTranslation } from 'react-i18next';
 
 export default function LoginPage() {
   const { signIn, profile } = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPw, setShowPw] = useState(false);
@@ -18,7 +20,7 @@ export default function LoginPage() {
     setError('');
     const { error } = await signIn(email, password);
     if (error) {
-      setError('Onjuist e-mailadres of wachtwoord.');
+      setError(t('auth.login.error'));
       setLoading(false);
       return;
     }
@@ -42,8 +44,8 @@ export default function LoginPage() {
             </div>
             <span className="font-display text-2xl font-semibold text-cream-50">Cellar2Table</span>
           </Link>
-          <h1 className="font-display text-3xl font-bold text-cream-50 mb-2">Welkom terug</h1>
-          <p className="text-cream-200/60 font-sans text-sm">Log in op uw account</p>
+          <h1 className="font-display text-3xl font-bold text-cream-50 mb-2">{t('auth.login.title')}</h1>
+          <p className="text-cream-200/60 font-sans text-sm">{t('auth.login.subtitle')}</p>
         </div>
 
         <div className="card-dark p-8">
@@ -56,11 +58,11 @@ export default function LoginPage() {
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="label-dark">E-mailadres</label>
+              <label className="label-dark">{t('auth.login.email')}</label>
               <input type="email" value={email} onChange={e => setEmail(e.target.value)} className="input-dark" placeholder="uw@email.nl" required />
             </div>
             <div>
-              <label className="label-dark">Wachtwoord</label>
+              <label className="label-dark">{t('auth.login.password')}</label>
               <div className="relative">
                 <input type={showPw ? 'text' : 'password'} value={password} onChange={e => setPassword(e.target.value)} className="input-dark pr-10" placeholder="••••••••" required />
                 <button type="button" onClick={() => setShowPw(!showPw)} className="absolute right-3 top-1/2 -translate-y-1/2 text-noir-500 hover:text-cream-300">
@@ -69,13 +71,13 @@ export default function LoginPage() {
               </div>
             </div>
             <button type="submit" disabled={loading} className="btn-gold w-full py-3 mt-2 disabled:opacity-60">
-              {loading ? 'Inloggen...' : 'Inloggen'}
+              {loading ? t('auth.login.loading') : t('auth.login.submit')}
             </button>
           </form>
 
           <p className="text-center text-sm text-cream-200/60 font-sans mt-6">
-            Nog geen account?{' '}
-            <Link to="/register" className="text-gold-400 hover:text-gold-300 font-medium">Registreer hier</Link>
+            {t('auth.login.no_account')}{' '}
+            <Link to="/register" className="text-gold-400 hover:text-gold-300 font-medium">{t('auth.login.register_link')}</Link>
           </p>
         </div>
       </div>

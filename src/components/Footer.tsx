@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
 import { Wine, Mail, Phone, MapPin } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export default function Footer() {
+  const { t } = useTranslation();
+
   return (
     <footer className="bg-noir-900 border-t border-noir-700 pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -15,7 +18,7 @@ export default function Footer() {
               <span className="font-display text-lg font-semibold text-cream-50">Cellar2Table</span>
             </Link>
             <p className="text-sm text-cream-200/70 font-sans leading-relaxed mb-5">
-              Authentieke wijnen, rechtstreeks van de beste producenten wereldwijd naar uw tafel.
+              {t('footer.tagline')}
             </p>
             <div className="flex items-center gap-3">
               {['IG', 'X', 'FB'].map((label) => (
@@ -26,17 +29,23 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Navigatie */}
+          {/* Navigation */}
           <div>
-            <h4 className="font-display text-sm font-semibold text-cream-50 uppercase tracking-widest mb-4">Navigatie</h4>
+            <h4 className="font-display text-sm font-semibold text-cream-50 uppercase tracking-widest mb-4">{t('footer.nav_title')}</h4>
             <ul className="space-y-2.5">
-              {[['/', 'Home'], ['/producers', 'Wijnhuizen'], ['/for-producers', 'Voor producenten'], ['/contact', 'Contact'], ['/login', 'Inloggen']].map(([to, label]) => (
+              {[
+                ['/', t('nav.home')],
+                ['/producers', t('nav.wineries')],
+                ['/for-producers', t('nav.forProducers')],
+                ['/contact', t('nav.contact')],
+                ['/login', t('nav.login')],
+              ].map(([to, label]) => (
                 <li key={to}><Link to={to} className="text-sm text-cream-200/70 hover:text-gold-400 font-sans transition-colors">{label}</Link></li>
               ))}
             </ul>
           </div>
 
-          {/* Wijnhuizen */}
+          {/* Wineries */}
           <div>
             <h4 className="font-display text-sm font-semibold text-cream-50 uppercase tracking-widest mb-4">Uitgelicht</h4>
             <ul className="space-y-2.5">
@@ -48,7 +57,7 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="font-display text-sm font-semibold text-cream-50 uppercase tracking-widest mb-4">Contact</h4>
+            <h4 className="font-display text-sm font-semibold text-cream-50 uppercase tracking-widest mb-4">{t('footer.contact_title')}</h4>
             <ul className="space-y-3">
               <li className="flex items-start gap-2.5">
                 <Mail className="w-4 h-4 text-gold-500 mt-0.5 shrink-0" />
@@ -67,8 +76,11 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-noir-700 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-cream-200/40 font-sans">© 2025 Cellar2Table. Alle rechten voorbehouden.</p>
-          <p className="text-xs text-cream-200/40 font-sans">Geniet met mate. Alcoholhoudende dranken, leeftijdsgrens 18+.</p>
+          <p className="text-xs text-cream-200/40 font-sans">{t('footer.copyright')}</p>
+          <div className="flex items-center gap-4">
+            <Link to="/privacy" className="text-xs text-cream-200/40 hover:text-cream-200/70 font-sans transition-colors">{t('footer.privacy')}</Link>
+            <Link to="/terms" className="text-xs text-cream-200/40 hover:text-cream-200/70 font-sans transition-colors">{t('footer.terms')}</Link>
+          </div>
         </div>
       </div>
     </footer>

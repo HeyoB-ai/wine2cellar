@@ -2,10 +2,13 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Wine, Menu, X, ChevronDown, User, LogOut, LayoutDashboard } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from './LanguageSwitcher';
 
 export default function Header() {
   const { user, profile, signOut } = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -18,7 +21,7 @@ export default function Header() {
   const roleLabel = profile?.role === 'admin'
     ? 'Beheerder'
     : profile?.role === 'wijnhuis'
-    ? 'Wijnhuis'
+    ? t('nav.wineries')
     : 'Afnemer';
 
   async function handleSignOut() {
@@ -28,11 +31,11 @@ export default function Header() {
   }
 
   const navLinks = [
-    { to: '/', label: 'Home' },
-    { to: '/partijen', label: 'Aanbiedingen' },
-    { to: '/producers', label: 'Wijnhuizen' },
-    { to: '/for-producers', label: 'Voor wijnhuizen' },
-    { to: '/contact', label: 'Contact' },
+    { to: '/', label: t('nav.home') },
+    { to: '/partijen', label: t('nav.offers') },
+    { to: '/producers', label: t('nav.wineries') },
+    { to: '/for-producers', label: t('nav.forProducers') },
+    { to: '/contact', label: t('nav.contact') },
   ];
 
   return (
@@ -56,8 +59,9 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Auth */}
+          {/* Auth + Language */}
           <div className="hidden md:flex items-center gap-3">
+            <LanguageSwitcher />
             {user ? (
               <div className="relative">
                 <button
@@ -76,19 +80,19 @@ export default function Header() {
                 {dropdownOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-noir-800 border border-noir-600 rounded-xl shadow-2xl py-1">
                     <Link to={dashboardPath} onClick={() => setDropdownOpen(false)} className="flex items-center gap-2 px-4 py-2.5 text-sm text-cream-200 hover:bg-noir-700 hover:text-gold-400 transition-colors">
-                      <LayoutDashboard className="w-4 h-4" /> Dashboard
+                      <LayoutDashboard className="w-4 h-4" /> {t('nav.dashboard')}
                     </Link>
                     <hr className="border-noir-600 my-1" />
                     <button onClick={handleSignOut} className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-cream-200 hover:bg-noir-700 hover:text-wine-400 transition-colors">
-                      <LogOut className="w-4 h-4" /> Uitloggen
+                      <LogOut className="w-4 h-4" /> {t('nav.logout')}
                     </button>
                   </div>
                 )}
               </div>
             ) : (
               <>
-                <Link to="/login" className="text-sm font-sans text-cream-200 hover:text-gold-400 transition-colors px-3 py-2">Inloggen</Link>
-                <Link to="/register" className="btn-gold text-sm py-2 px-5">Registreren</Link>
+                <Link to="/login" className="text-sm font-sans text-cream-200 hover:text-gold-400 transition-colors px-3 py-2">{t('nav.login')}</Link>
+                <Link to="/register" className="btn-gold text-sm py-2 px-5">{t('nav.register')}</Link>
               </>
             )}
           </div>
@@ -109,15 +113,18 @@ export default function Header() {
             </Link>
           ))}
           <hr className="border-noir-700 my-2" />
+          <div className="px-3 py-2">
+            <LanguageSwitcher />
+          </div>
           {user ? (
             <>
-              <Link to={dashboardPath} onClick={() => setMobileOpen(false)} className="block px-3 py-2.5 text-gold-400 text-sm font-sans">Dashboard</Link>
-              <button onClick={handleSignOut} className="block w-full text-left px-3 py-2.5 text-wine-400 text-sm font-sans">Uitloggen</button>
+              <Link to={dashboardPath} onClick={() => setMobileOpen(false)} className="block px-3 py-2.5 text-gold-400 text-sm font-sans">{t('nav.dashboard')}</Link>
+              <button onClick={handleSignOut} className="block w-full text-left px-3 py-2.5 text-wine-400 text-sm font-sans">{t('nav.logout')}</button>
             </>
           ) : (
             <>
-              <Link to="/login" onClick={() => setMobileOpen(false)} className="block px-3 py-2.5 text-cream-200 text-sm font-sans">Inloggen</Link>
-              <Link to="/register" onClick={() => setMobileOpen(false)} className="block btn-gold text-center text-sm py-2.5 mt-2">Registreren</Link>
+              <Link to="/login" onClick={() => setMobileOpen(false)} className="block px-3 py-2.5 text-cream-200 text-sm font-sans">{t('nav.login')}</Link>
+              <Link to="/register" onClick={() => setMobileOpen(false)} className="block btn-gold text-center text-sm py-2.5 mt-2">{t('nav.register')}</Link>
             </>
           )}
         </div>

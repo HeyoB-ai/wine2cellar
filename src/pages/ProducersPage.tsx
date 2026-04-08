@@ -2,8 +2,10 @@ import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, MapPin, Award, Grape } from 'lucide-react';
 import { producers } from '../data/producers';
+import { useTranslation } from 'react-i18next';
 
 export default function ProducersPage() {
+  const { t } = useTranslation();
   const [query, setQuery] = useState('');
   const [activeCountry, setActiveCountry] = useState('Alle');
 
@@ -20,10 +22,10 @@ export default function ProducersPage() {
       {/* Hero */}
       <section className="bg-noir-800/60 py-20 border-b border-noir-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-gold-500 font-sans text-sm tracking-widest uppercase mb-3">Onze database</p>
-          <h1 className="section-title mb-4">Wijnhuizen</h1>
+          <p className="text-gold-500 font-sans text-sm tracking-widest uppercase mb-3">{t('producers.title')}</p>
+          <h1 className="section-title mb-4">{t('nav.wineries')}</h1>
           <div className="gold-divider mx-auto mb-6" />
-          <p className="text-cream-200/60 font-sans max-w-xl mx-auto">Ontdek wijnhuizen uit Frankrijk, Italië, Duitsland en Spanje die actief zijn op ons platform.</p>
+          <p className="text-cream-200/60 font-sans max-w-xl mx-auto">{t('producers.subtitle')}</p>
         </div>
       </section>
 
@@ -33,17 +35,20 @@ export default function ProducersPage() {
           <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
             <div className="relative flex-1 max-w-md">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-noir-500" />
-              <input value={query} onChange={e => setQuery(e.target.value)} placeholder="Zoek op naam of regio..." className="input-dark pl-9 py-2.5" />
+              <input value={query} onChange={e => setQuery(e.target.value)} placeholder={t('producers.search_placeholder')} className="input-dark pl-9 py-2.5" />
             </div>
             <div className="flex flex-wrap gap-2">
               {countries.map(c => (
                 <button key={c} onClick={() => setActiveCountry(c)}
                   className={`px-4 py-2 rounded-full text-sm font-sans font-medium transition-all ${activeCountry === c ? 'bg-wine-700 text-cream-50' : 'bg-noir-800 text-cream-300 hover:bg-noir-700 border border-noir-600'}`}>
-                  {c}
+                  {c === 'Alle' ? t('lots.filter_all_countries') : c}
                 </button>
               ))}
             </div>
           </div>
+          <p className="text-cream-400 text-sm mt-2">
+            {t(filtered.length === 1 ? 'producers.found_singular' : 'producers.found_plural', { count: filtered.length })}
+          </p>
         </div>
       </div>
 
@@ -53,7 +58,7 @@ export default function ProducersPage() {
           {filtered.length === 0 ? (
             <div className="text-center py-24">
               <Grape className="w-16 h-16 text-noir-600 mx-auto mb-4" />
-              <p className="text-cream-200/40 font-sans">Geen wijnhuizen gevonden.</p>
+              <p className="text-cream-200/40 font-sans">{t('producers.empty')}</p>
             </div>
           ) : (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -79,7 +84,7 @@ export default function ProducersPage() {
                         ))}
                       </div>
                     )}
-                    <Link to={`/producer/${p.id}`} className="btn-wine w-full text-sm py-2.5 justify-center">Bekijk wijnhuis</Link>
+                    <Link to={`/producer/${p.id}`} className="btn-wine w-full text-sm py-2.5 justify-center">{t('producers.visit')}</Link>
                   </div>
                 </div>
               ))}

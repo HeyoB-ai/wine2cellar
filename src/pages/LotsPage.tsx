@@ -1,13 +1,7 @@
 import { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { mockLots, type Lot } from '../data/lots'
-
-const LOT_TYPE_LABELS: Record<string, string> = {
-  restpartij: 'Restpartij',
-  schadepartij: 'Schadepartij',
-  overproductie: 'Overproductie',
-  anders: 'Anders',
-}
+import { useTranslation } from 'react-i18next'
 
 const LOT_TYPE_COLORS: Record<string, string> = {
   restpartij: 'bg-wine-800 text-wine-100',
@@ -16,7 +10,7 @@ const LOT_TYPE_COLORS: Record<string, string> = {
   anders: 'bg-noir-600 text-cream-100',
 }
 
-const WINE_TYPE_LABELS: Record<string, string> = {
+const WINE_TYPE_KEYS: Record<string, string> = {
   rood: 'Rood',
   wit: 'Wit',
   rosé: 'Rosé',
@@ -25,6 +19,7 @@ const WINE_TYPE_LABELS: Record<string, string> = {
 }
 
 export default function LotsPage() {
+  const { t } = useTranslation();
   const [filterCountry, setFilterCountry] = useState('')
   const [filterWineType, setFilterWineType] = useState('')
   const [filterLotType, setFilterLotType] = useState('')
@@ -40,14 +35,19 @@ export default function LotsPage() {
     })
   }, [filterCountry, filterWineType, filterLotType, filterAvailableFor])
 
+  const getLotTypelabel = (type: string) => {
+    const key = `lots.badge_${type}` as const
+    return t(key) || type
+  }
+
   return (
     <div className="min-h-screen bg-noir-900 text-cream-50">
       {/* Header */}
       <section className="bg-gradient-to-b from-noir-800 to-noir-900 pt-16 pb-10 px-4">
         <div className="max-w-6xl mx-auto">
-          <h1 className="section-title text-4xl mb-3">Actieve aanbiedingen</h1>
+          <h1 className="section-title text-4xl mb-3">{t('lots.title')}</h1>
           <p className="text-cream-200 text-lg max-w-2xl">
-            Restpartijen en schadepartijen van Europese wijnhuizen — direct beschikbaar voor particulieren en horeca.
+            {t('lots.subtitle')}
           </p>
         </div>
       </section>
@@ -60,7 +60,7 @@ export default function LotsPage() {
             onChange={e => setFilterCountry(e.target.value)}
             className="input-dark text-sm py-1.5 px-3"
           >
-            <option value="">Alle landen</option>
+            <option value="">{t('lots.filter_all_countries')}</option>
             <option value="Frankrijk">Frankrijk</option>
             <option value="Italië">Italië</option>
             <option value="Duitsland">Duitsland</option>
@@ -71,33 +71,32 @@ export default function LotsPage() {
             onChange={e => setFilterWineType(e.target.value)}
             className="input-dark text-sm py-1.5 px-3"
           >
-            <option value="">Alle wijntypen</option>
-            <option value="rood">Rood</option>
-            <option value="wit">Wit</option>
-            <option value="rosé">Rosé</option>
-            <option value="mousseux">Mousseux</option>
+            <option value="">{t('lots.filter_all_wine')}</option>
+            {Object.entries(WINE_TYPE_KEYS).map(([val, label]) => (
+              <option key={val} value={val}>{label}</option>
+            ))}
           </select>
           <select
             value={filterLotType}
             onChange={e => setFilterLotType(e.target.value)}
             className="input-dark text-sm py-1.5 px-3"
           >
-            <option value="">Alle soorten</option>
-            <option value="restpartij">Restpartij</option>
-            <option value="schadepartij">Schadepartij</option>
-            <option value="overproductie">Overproductie</option>
+            <option value="">{t('lots.filter_all_types')}</option>
+            <option value="restpartij">{t('lots.badge_restpartij')}</option>
+            <option value="schadepartij">{t('lots.badge_schadepartij')}</option>
+            <option value="overproductie">{t('lots.badge_overproductie')}</option>
           </select>
           <select
             value={filterAvailableFor}
             onChange={e => setFilterAvailableFor(e.target.value)}
             className="input-dark text-sm py-1.5 px-3"
           >
-            <option value="">Particulier &amp; horeca</option>
-            <option value="particulier">Particulier</option>
-            <option value="horeca">Horeca</option>
+            <option value="">{t('auth.register.buyer_type_particulier')} &amp; {t('auth.register.buyer_type_horeca')}</option>
+            <option value="particulier">{t('auth.register.buyer_type_particulier')}</option>
+            <option value="horeca">{t('auth.register.buyer_type_horeca')}</option>
           </select>
           <span className="text-cream-400 text-sm self-center ml-auto">
-            {filtered.length} {filtered.length === 1 ? 'aanbieding' : 'aanbiedingen'}
+            {t(filtered.length === 1 ? 'producers.found_singular' : 'producers.found_plural', { count: filtered.length })}
           </span>
         </div>
       </section>
@@ -105,7 +104,7 @@ export default function LotsPage() {
       {/* Lots grid */}
       <section className="max-w-6xl mx-auto px-4 py-10">
         {filtered.length === 0 ? (
-          <p className="text-cream-400 text-center py-20">Geen aanbiedingen gevonden voor deze filters.</p>
+          <p className="text-cream-400 text-center py-20">{t('lots.empty')}</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map((lot: Lot) => (
@@ -113,14 +112,14 @@ export default function LotsPage() {
                 {/* Badge row */}
                 <div className="flex gap-2 mb-3 flex-wrap">
                   <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${LOT_TYPE_COLORS[lot.lotType]}`}>
-                    {LOT_TYPE_LABELS[lot.lotType]}
+                    {getLotTypelabel(lot.lotType)}
                   </span>
                   <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-noir-600 text-cream-200">
-                    {WINE_TYPE_LABELS[lot.wineType]}
+                    {WINE_TYPE_KEYS[lot.wineType]}
                   </span>
                   {lot.availableFor.length === 1 && (
                     <span className="text-xs px-2 py-0.5 rounded-full bg-gold-900/30 text-gold-400 border border-gold-800/40">
-                      alleen {lot.availableFor[0]}
+                      {lot.availableFor[0] === 'particulier' ? t('auth.register.buyer_type_particulier') : t('auth.register.buyer_type_horeca')}
                     </span>
                   )}
                 </div>
@@ -143,16 +142,16 @@ export default function LotsPage() {
                     <span className="text-cream-100">{lot.vintage}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-cream-400">Beschikbaar</span>
-                    <span className="text-cream-100">{lot.quantityBottles} flessen</span>
+                    <span className="text-cream-400">{t('lots.bottles')}</span>
+                    <span className="text-cream-100">{lot.quantityBottles} {t('lots.bottles')}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-cream-400">Prijs per fles</span>
+                    <span className="text-cream-400">{t('lots.per_bottle')}</span>
                     <span className="text-gold-400 font-semibold">€{lot.pricePerBottle.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-cream-400">Min. afname</span>
-                    <span className="text-cream-100">{lot.minimumOrderBottles} flessen</span>
+                    <span className="text-cream-400">{t('lots.min_order', { amount: lot.minimumOrderBottles })}</span>
+                    <span className="text-cream-100">{lot.minimumOrderBottles} {t('lots.bottles')}</span>
                   </div>
                 </div>
 
@@ -161,7 +160,7 @@ export default function LotsPage() {
                   to="/login"
                   className="btn-gold w-full text-center mt-4 text-sm py-2"
                 >
-                  Interesse tonen
+                  {t('lots.interest')}
                 </Link>
               </div>
             ))}
