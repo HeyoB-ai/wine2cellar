@@ -1,12 +1,12 @@
 export interface Lot {
   id: string
   wineryName: string
-  wineryCountry: string
+  wineryCountry: 'france' | 'italy' | 'germany' | 'spain'
   wineryRegion: string
   title: string
   description: string
   lotType: 'restpartij' | 'schadepartij' | 'overproductie' | 'anders'
-  wineType: 'rood' | 'wit' | 'rosé' | 'mousseux' | 'overig'
+  wineType: 'red' | 'white' | 'rose' | 'sparkling' | 'other'
   vintage: number
   grapeVariety: string
   quantityBottles: number
@@ -21,12 +21,12 @@ export const mockLots: Lot[] = [
   {
     id: '1',
     wineryName: 'Château Beaulieu',
-    wineryCountry: 'Frankrijk',
+    wineryCountry: 'france',
     wineryRegion: 'Bordeaux',
     title: 'Restpartij Bordeaux rouge 2021',
     description: 'Overgebleven voorraad na exportorder. Uitstekende kwaliteit, originele etiketten. Ideaal voor restaurants en wijnwinkels.',
     lotType: 'restpartij',
-    wineType: 'rood',
+    wineType: 'red',
     vintage: 2021,
     grapeVariety: 'Merlot, Cabernet Sauvignon',
     quantityBottles: 240,
@@ -39,12 +39,12 @@ export const mockLots: Lot[] = [
   {
     id: '2',
     wineryName: 'Domaine de la Croix',
-    wineryCountry: 'Frankrijk',
+    wineryCountry: 'france',
     wineryRegion: 'Provence',
     title: 'Schadepartij rosé 2022 — beschadigde etiketten',
     description: 'Identieke wijn als onze reguliere rosé, maar met licht beschadigde etiketten door opslag. Inhoud en kwaliteit 100%. Grote korting.',
     lotType: 'schadepartij',
-    wineType: 'rosé',
+    wineType: 'rose',
     vintage: 2022,
     grapeVariety: 'Grenache, Cinsault',
     quantityBottles: 180,
@@ -56,12 +56,12 @@ export const mockLots: Lot[] = [
   {
     id: '3',
     wineryName: 'Fattoria Toscana',
-    wineryCountry: 'Italië',
+    wineryCountry: 'italy',
     wineryRegion: 'Toscane',
     title: 'Overproductie Chianti Classico 2020',
     description: 'Uitzonderlijk goede oogst resulteerde in overproductie. Gecertificeerde DOCG-wijn, ook beschikbaar per pallet voor groothandel.',
     lotType: 'overproductie',
-    wineType: 'rood',
+    wineType: 'red',
     vintage: 2020,
     grapeVariety: 'Sangiovese',
     quantityBottles: 500,
@@ -74,12 +74,12 @@ export const mockLots: Lot[] = [
   {
     id: '4',
     wineryName: 'Bodegas Rioja Alta',
-    wineryCountry: 'Spanje',
+    wineryCountry: 'spain',
     wineryRegion: 'La Rioja',
     title: 'Restpartij Rioja Crianza 2019 — alleen horeca',
     description: 'Professionele restpartij na horecaorder die niet doorging. Minimale afname 1 pallet (600 flessen). Uitsluitend voor horeca en slijterijen.',
     lotType: 'restpartij',
-    wineType: 'rood',
+    wineType: 'red',
     vintage: 2019,
     grapeVariety: 'Tempranillo',
     quantityBottles: 300,
@@ -92,12 +92,12 @@ export const mockLots: Lot[] = [
   {
     id: '5',
     wineryName: 'Weingut Mosel',
-    wineryCountry: 'Duitsland',
+    wineryCountry: 'germany',
     wineryRegion: 'Moezel',
     title: 'Overproductie Riesling Spätlese 2022',
     description: 'Uitstekende oogst leidde tot overproductie van onze Spätlese. Fruitig en elegant, geschikt voor particulieren die graag grotere hoeveelheden bestellen.',
     lotType: 'overproductie',
-    wineType: 'wit',
+    wineType: 'white',
     vintage: 2022,
     grapeVariety: 'Riesling',
     quantityBottles: 200,

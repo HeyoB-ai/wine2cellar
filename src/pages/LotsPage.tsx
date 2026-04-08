@@ -23,9 +23,9 @@ export default function LotsPage() {
     return true
   }), [filterCountry, filterWineType, filterLotType])
 
-  const countries = ['Frankrijk', 'Italië', 'Duitsland', 'Spanje']
-  const wineTypes = ['rood', 'wit', 'rosé', 'mousseux']
-  const lotTypes = ['restpartij', 'schadepartij', 'overproductie']
+  const countries = ['france', 'italy', 'germany', 'spain'] as const
+  const wineTypes = ['red', 'white', 'rose', 'sparkling'] as const
+  const lotTypes = ['restpartij', 'schadepartij', 'overproductie'] as const
 
   return (
     <div className="min-h-screen pt-16" style={{ background: '#0D0F1E', color: '#F0EBE3' }}>
@@ -46,18 +46,24 @@ export default function LotsPage() {
               {t('lots.filter_all_countries')}
             </button>
             {countries.map(c => (
-              <button key={c} onClick={() => setFilterCountry(filterCountry === c ? '' : c)} className={`chip ${filterCountry === c ? 'chip-active' : ''}`}>{c}</button>
+              <button key={c} onClick={() => setFilterCountry(filterCountry === c ? '' : c)} className={`chip ${filterCountry === c ? 'chip-active' : ''}`}>
+                {t(`lots.country_${c}`)}
+              </button>
             ))}
             <div className="w-px h-4 mx-1" style={{ background: 'rgba(255,255,255,0.10)' }} />
             {wineTypes.map(w => (
-              <button key={w} onClick={() => setFilterWineType(filterWineType === w ? '' : w)} className={`chip ${filterWineType === w ? 'chip-active' : ''} capitalize`}>{w}</button>
+              <button key={w} onClick={() => setFilterWineType(filterWineType === w ? '' : w)} className={`chip ${filterWineType === w ? 'chip-active' : ''}`}>
+                {t(`lots.wine_${w}`)}
+              </button>
             ))}
             <div className="w-px h-4 mx-1" style={{ background: 'rgba(255,255,255,0.10)' }} />
             {lotTypes.map(l => (
-              <button key={l} onClick={() => setFilterLotType(filterLotType === l ? '' : l)} className={`chip ${filterLotType === l ? 'chip-active' : ''}`}>{l}</button>
+              <button key={l} onClick={() => setFilterLotType(filterLotType === l ? '' : l)} className={`chip ${filterLotType === l ? 'chip-active' : ''}`}>
+                {t(`lots.badge_${l}`)}
+              </button>
             ))}
             <span className="ml-auto font-body text-xs" style={{ color: 'rgba(240,235,227,0.40)' }}>
-              {filtered.length} {filtered.length === 1 ? 'aanbieding' : 'aanbiedingen'}
+              {t(filtered.length === 1 ? 'lots.found_singular' : 'lots.found_plural', { count: filtered.length })}
             </span>
           </div>
         </div>
@@ -82,8 +88,8 @@ export default function LotsPage() {
                     <span className="badge-lot" style={LOT_TYPE_BADGE_STYLE[lot.lotType] || LOT_TYPE_BADGE_STYLE.anders}>
                       {t(`lots.badge_${lot.lotType}`)}
                     </span>
-                    <span className="badge-lot capitalize" style={{ background: 'rgba(255,255,255,0.07)', color: 'rgba(240,235,227,0.55)' }}>
-                      {lot.wineType}
+                    <span className="badge-lot" style={{ background: 'rgba(255,255,255,0.07)', color: 'rgba(240,235,227,0.55)' }}>
+                      {t(`lots.wine_${lot.wineType}`)}
                     </span>
                   </div>
 
@@ -112,7 +118,7 @@ export default function LotsPage() {
                     </div>
                     <div className="flex justify-between">
                       <span className="font-body text-xs" style={{ color: 'rgba(240,235,227,0.40)' }}>{t('lots.min_order', { amount: lot.minimumOrderBottles })}</span>
-                      <span className="font-body text-xs" style={{ color: 'rgba(240,235,227,0.50)' }}>{lot.wineryCountry}</span>
+                      <span className="font-body text-xs" style={{ color: 'rgba(240,235,227,0.50)' }}>{t(`lots.country_${lot.wineryCountry}`)}</span>
                     </div>
                   </div>
 
