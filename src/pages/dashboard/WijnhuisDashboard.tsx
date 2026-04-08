@@ -3,6 +3,7 @@ import { Wine, Package, Users, AlertCircle } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
+
 export default function WijnhuisDashboard() {
   const { profile, signOut } = useAuth()
   const { t } = useTranslation()
@@ -13,6 +14,9 @@ export default function WijnhuisDashboard() {
       {/* Sidebar */}
       <aside className="w-64 shrink-0 p-6" style={{ background: '#12142A', borderRight: '1px solid rgba(255,255,255,0.06)' }}>
         <div className="mb-8">
+          <Link to="/" className="font-display text-base font-semibold block mb-2 hover:opacity-80 transition-opacity" style={{ color: '#E91E8C' }}>
+            Cellar2Table
+          </Link>
           <span className="font-display text-lg font-semibold block" style={{ color: '#F0EBE3' }}>
             {profile?.company_name || profile?.full_name || t('nav.wineries')}
           </span>

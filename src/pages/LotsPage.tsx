@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { mockLots } from '../data/lots'
+import { useAuth } from '../context/AuthContext'
 
 const LOT_TYPE_BADGE_STYLE: Record<string, React.CSSProperties> = {
   restpartij: { background: 'rgba(233,30,140,0.18)', color: '#E91E8C' },
@@ -12,6 +13,7 @@ const LOT_TYPE_BADGE_STYLE: Record<string, React.CSSProperties> = {
 
 export default function LotsPage() {
   const { t } = useTranslation()
+  const { user } = useAuth()
   const [filterCountry, setFilterCountry] = useState('')
   const [filterWineType, setFilterWineType] = useState('')
   const [filterLotType, setFilterLotType] = useState('')
@@ -122,7 +124,7 @@ export default function LotsPage() {
                     </div>
                   </div>
 
-                  <Link to="/login" className="btn-gold w-full justify-center text-sm py-2.5">
+                  <Link to={user ? '/contact' : '/login'} className="btn-gold w-full justify-center text-sm py-2.5">
                     {t('lots.interest')}
                   </Link>
                 </div>

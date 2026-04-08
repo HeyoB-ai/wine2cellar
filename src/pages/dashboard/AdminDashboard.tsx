@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useAuth } from '../../context/AuthContext'
 import { producers } from '../../data/producers'
 import { Users, Package, TrendingUp, Grape } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 export default function AdminDashboard() {
@@ -24,8 +25,11 @@ export default function AdminDashboard() {
       {/* Sidebar */}
       <aside className="w-64 shrink-0 p-6" style={{ background: '#12142A', borderRight: '1px solid rgba(255,255,255,0.06)' }}>
         <div className="mb-8">
-          <span className="font-display text-lg font-semibold block" style={{ color: '#E91E8C' }}>{t('dashboard.admin.title')}</span>
-          <span className="font-body text-xs" style={{ color: 'rgba(240,235,227,0.40)' }}>{profile?.full_name || 'Admin'}</span>
+          <Link to="/" className="font-display text-lg font-semibold block mb-1 hover:opacity-80 transition-opacity" style={{ color: '#E91E8C' }}>
+            Cellar2Table
+          </Link>
+          <span className="font-body text-xs block" style={{ color: 'rgba(240,235,227,0.40)' }}>{t('dashboard.admin.title')}</span>
+          <span className="font-body text-xs" style={{ color: 'rgba(240,235,227,0.30)' }}>{profile?.full_name || 'Admin'}</span>
         </div>
         <nav className="space-y-1">
           {TABS.map(tabItem => (
