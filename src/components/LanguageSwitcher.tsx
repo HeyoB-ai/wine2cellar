@@ -11,24 +11,24 @@ const LANGUAGES = [
 
 export default function LanguageSwitcher() {
   const { i18n } = useTranslation()
-  const current = LANGUAGES.find(l => l.code === i18n.language) || LANGUAGES[0]
+  const current = LANGUAGES.find(l => i18n.language.startsWith(l.code)) || LANGUAGES[0]
 
   return (
     <div className="relative group">
-      <button className="flex items-center gap-1 px-2 py-1 rounded text-cream-300 hover:text-cream-50 hover:bg-noir-700 transition-colors text-sm font-medium">
+      <button className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full font-body text-sm font-medium text-navy/60 hover:text-burgundy hover:bg-surface-low transition-colors">
         <span>{current.flag}</span>
         <span>{current.label}</span>
-        <svg className="w-3 h-3 ml-0.5 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg className="w-3 h-3 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
       </button>
-      <div className="absolute right-0 top-full mt-1 bg-noir-800 border border-noir-600 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 min-w-[120px]">
+      <div className="absolute right-0 top-full mt-1 bg-cream rounded-xl shadow-card opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 min-w-[110px] py-1">
         {LANGUAGES.map(lang => (
           <button
             key={lang.code}
             onClick={() => i18n.changeLanguage(lang.code)}
-            className={`w-full flex items-center gap-2 px-3 py-2 text-sm hover:bg-noir-700 transition-colors first:rounded-t-lg last:rounded-b-lg ${
-              i18n.language === lang.code ? 'text-gold-400 font-semibold' : 'text-cream-300'
+            className={`w-full flex items-center gap-2 px-3 py-2 text-sm font-body transition-colors hover:bg-surface-low ${
+              i18n.language.startsWith(lang.code) ? 'text-primary font-semibold' : 'text-navy/60'
             }`}
           >
             <span>{lang.flag}</span>

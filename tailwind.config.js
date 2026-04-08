@@ -1,31 +1,50 @@
-/** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
-        wine: {
-          50: '#fdf2f4', 100: '#fce7eb', 200: '#f9d0d9', 300: '#f4a8b8',
-          400: '#ed7291', 500: '#e04070', 600: '#cd2455', 700: '#ab1842',
-          800: '#8f1537', 900: '#7a1432', 950: '#43071a',
+        primary: {
+          DEFAULT: '#BE185D',
+          light: '#FFB1C3',
+          container: '#FFE4EE',
+          on: '#FFFFFF',
         },
-        gold: {
-          300: '#f4d675', 400: '#efc14a', 500: '#d4a017', 600: '#b8860b',
+        secondary: {
+          DEFAULT: '#EEC200',
+          light: '#FFE083',
+          container: '#FFF8DC',
+          on: '#1A1200',
         },
-        noir: {
-          500: '#3d2b32', 600: '#2e1f27', 700: '#231519', 800: '#180f13',
-          900: '#0d0a0b',
+        surface: {
+          DEFAULT: '#FDF8F2',
+          low: '#F5EDE3',
+          high: '#EDE0D4',
+          highest: '#E0D0C0',
+          lowest: '#070E1D',
         },
-        cream: {
-          50: '#fefcf8', 100: '#fdf7ed', 200: '#faefd5',
-        },
+        burgundy: '#6B1A2A',
+        cream: '#FDF8F2',
+        navy: '#070E1D',
+        outline: '#C4A882',
       },
       fontFamily: {
-        display: ['"Playfair Display"', 'Georgia', 'serif'],
-        body: ['Lora', 'Georgia', 'serif'],
-        sans: ['"DM Sans"', 'system-ui', 'sans-serif'],
+        display: ['"Noto Serif"', 'Georgia', 'serif'],
+        body: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+      },
+      borderRadius: {
+        xl: '0.75rem',
+      },
+      backdropBlur: {
+        md: '12px',
+      },
+      boxShadow: {
+        ambient: '0 20px 40px rgba(7, 14, 29, 0.4)',
+        card: '0 8px 24px rgba(107, 26, 42, 0.12)',
+      },
+      letterSpacing: {
+        tight: '-0.02em',
       },
     },
   },
   plugins: [],
-}
+};

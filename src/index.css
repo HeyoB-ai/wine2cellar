@@ -4,39 +4,103 @@
 
 @layer base {
   body {
-    @apply bg-noir-900 text-cream-100 font-sans antialiased;
+    @apply bg-cream text-navy font-body antialiased;
+    background: linear-gradient(180deg, #FDF8F2 0%, #F5EDE3 100%);
+    min-height: 100vh;
   }
-  h1, h2, h3 {
+
+  h1, h2, h3, h4 {
     @apply font-display;
+    letter-spacing: -0.02em;
   }
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { @apply bg-noir-800; }
-  ::-webkit-scrollbar-thumb { @apply bg-wine-700 rounded-full; }
 }
 
 @layer components {
   .btn-gold {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-gold-500 text-noir-900 font-sans font-semibold text-sm rounded-md hover:bg-gold-400 transition-all duration-200 active:scale-95;
+    @apply font-body font-semibold px-6 py-3 rounded-full transition-all duration-300 ease-out inline-flex items-center gap-2;
+    background: linear-gradient(135deg, #EEC200, #FFE083);
+    color: #1A1200;
   }
-  .btn-outline {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 border border-gold-500 text-gold-400 font-sans font-semibold text-sm rounded-md hover:bg-gold-500/10 transition-all duration-200;
+  .btn-gold:hover {
+    box-shadow: 0 8px 24px rgba(107, 26, 42, 0.12);
+    filter: brightness(1.05);
   }
-  .btn-wine {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-wine-700 text-cream-50 font-sans font-semibold text-sm rounded-md hover:bg-wine-600 transition-all duration-200 active:scale-95;
+
+  .btn-ghost {
+    @apply font-body font-semibold px-6 py-3 rounded-full transition-all duration-300 ease-out inline-flex items-center gap-2;
+    border: 1.5px solid rgba(238, 194, 0, 0.4);
+    color: #6B1A2A;
+    background: transparent;
   }
-  .card-dark {
-    @apply bg-noir-800 border border-noir-600 rounded-xl overflow-hidden;
+  .btn-ghost:hover {
+    border-color: rgba(238, 194, 0, 0.8);
+    background: rgba(238, 194, 0, 0.08);
   }
-  .input-dark {
-    @apply w-full bg-noir-800 border border-noir-600 text-cream-100 placeholder-noir-500 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-colors;
+
+  .btn-primary {
+    @apply font-body font-semibold px-6 py-3 rounded-full transition-all duration-300 ease-out inline-flex items-center gap-2;
+    background: linear-gradient(135deg, #BE185D, #FFB1C3);
+    color: #ffffff;
   }
-  .label-dark {
-    @apply block text-sm font-sans font-medium text-cream-200 mb-1.5;
+  .btn-primary:hover {
+    box-shadow: 0 8px 24px rgba(107, 26, 42, 0.12);
+    filter: brightness(1.05);
   }
-  .section-title {
-    @apply font-display text-3xl md:text-4xl font-bold text-cream-50;
+
+  .card {
+    @apply bg-surface-low rounded-xl overflow-hidden transition-all duration-300 ease-out;
   }
-  .gold-divider {
-    @apply w-16 h-0.5 bg-gradient-to-r from-gold-500 to-gold-300 rounded-full;
+  .card:hover {
+    @apply bg-surface-high shadow-card;
+  }
+
+  .glass-nav {
+    background: rgba(253, 248, 242, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .input-underline {
+    @apply w-full bg-transparent border-0 border-b-2 py-3 px-0 font-body text-navy placeholder-outline/60 focus:outline-none transition-colors duration-300;
+    border-color: rgba(196, 168, 130, 0.4);
+  }
+  .input-underline:focus {
+    border-color: #EEC200;
+  }
+
+  .chip {
+    @apply px-4 py-1.5 rounded-full font-body text-sm transition-all duration-300 cursor-pointer;
+    background: rgba(237, 224, 212, 0.8);
+    color: #6B1A2A;
+  }
+  .chip:hover {
+    background: rgba(237, 224, 212, 1);
+  }
+  .chip-active {
+    background: #FFE4EE;
+    color: #BE185D;
+    font-weight: 600;
+  }
+
+  .section-label {
+    @apply font-body text-xs font-semibold uppercase tracking-widest;
+    color: #BE185D;
+  }
+
+  .display-hero {
+    @apply font-display leading-tight;
+    font-size: clamp(2.5rem, 7vw, 4.5rem);
+    letter-spacing: -0.02em;
+  }
+
+  .badge-lot {
+    @apply font-body text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full;
   }
 }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #F5EDE3; }
+::-webkit-scrollbar-thumb { background: #C4A882; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #EEC200; }
+
+html { scroll-behavior: smooth; }
