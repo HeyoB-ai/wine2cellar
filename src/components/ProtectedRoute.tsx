@@ -12,8 +12,8 @@ export default function ProtectedRoute({ children, allowedRoles }: Props) {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-noir-900 flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-gold-500 border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen flex items-center justify-center" style={{ background: '#0D0F1E' }}>
+        <div className="w-8 h-8 rounded-full animate-spin" style={{ border: '2px solid rgba(212,160,23,0.25)', borderTopColor: '#D4A017' }} />
       </div>
     );
   }

@@ -16,12 +16,27 @@ export default function LoginPage() {
     e.preventDefault()
     setLoading(true)
     setError('')
-    const { error: err } = await signIn(email, password)
+    console.log('[Login] Supabase URL:', import.meta.env.VITE_SUPABASE_URL)
+    const { error: err, profile } = await signIn(email, password)
     if (err) {
-      setError(t('auth.login.error'))
+      console.error('[Login] signIn error:', err)
+      // Surface the real Supabase error message so we can debug
+      const msg = err?.message ?? ''
+      if (msg.toLowerCase().includes('email not confirmed')) {
+        setError('E-mail nog niet bevestigd. Controleer uw inbox en klik de bevestigingslink aan.')
+      } else if (msg.toLowerCase().includes('invalid login credentials') || msg.toLowerCase().includes('invalid email or password')) {
+        setError('Ongeldig e-mailadres of wachtwoord.')
+      } else {
+        setError(msg || t('auth.login.error'))
+      }
       setLoading(false)
     } else {
-      navigate('/')
+      console.log('[Login] success, profile:', profile)
+      const role = profile?.role
+      if (role === 'admin') navigate('/dashboard/admin')
+      else if (role === 'wijnhuis') navigate('/dashboard/wijnhuis')
+      else if (role === 'afnemer') navigate('/dashboard/afnemer')
+      else navigate('/')
     }
   }
 

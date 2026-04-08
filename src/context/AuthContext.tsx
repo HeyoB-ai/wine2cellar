@@ -17,7 +17,7 @@ interface AuthContextType {
   session: Session | null;
   profile: Profile | null;
   loading: boolean;
-  signIn: (email: string, password: string) => Promise<{ error: any }>;
+  signIn: (email: string, password: string) => Promise<{ error: any; profile: Profile | null }>;
   signUp: (email: string, password: string, options: SignUpOptions) => Promise<{ error: any }>;
   signOut: () => Promise<void>;
 }
@@ -30,20 +30,30 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
 
-  async function fetchProfile(userId: string) {
-    const { data } = await supabase.from('profiles').select('*').eq('id', userId).maybeSingle();
-    if (data) setProfile(data as Profile);
+  async function fetchProfile(userId: string): Promise<Profile | null> {
+    console.log('[Auth] fetchProfile for userId:', userId);
+    const { data, error } = await supabase.from('profiles').select('*').eq('id', userId).maybeSingle();
+    console.log('[Auth] fetchProfile result:', { data, error });
+    if (data) {
+      setProfile(data as Profile);
+      return data as Profile;
+    }
+    return null;
   }
 
   useEffect(() => {
+    console.log('[Auth] Supabase URL:', import.meta.env.VITE_SUPABASE_URL);
+
     supabase.auth.getSession().then(({ data: { session } }) => {
+      console.log('[Auth] getSession:', session?.user?.id ?? 'no session');
       setSession(session);
       setUser(session?.user ?? null);
       if (session?.user) fetchProfile(session.user.id);
       setLoading(false);
     });
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      console.log('[Auth] onAuthStateChange event:', event, 'user:', session?.user?.id ?? 'null');
       setSession(session);
       setUser(session?.user ?? null);
       if (session?.user) fetchProfile(session.user.id);
@@ -54,8 +64,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   async function signIn(email: string, password: string) {
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    return { error };
+    console.log('[Auth] signIn attempt for:', email);
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    console.log('[Auth] signInWithPassword result:', { userId: data?.user?.id, error });
+    if (error) return { error, profile: null };
+    // Fetch profile immediately so caller can use role for redirect
+    const p = data.user ? await fetchProfile(data.user.id) : null;
+    console.log('[Auth] profile after signIn:', p);
+    return { error: null, profile: p };
   }
 
   async function signUp(email: string, password: string, options: SignUpOptions) {

@@ -50,8 +50,8 @@ export default function Header() {
           <nav className="hidden md:flex items-center gap-1">
             {[
               { label: t('nav.offers'), to: '/partijen' },
-              { label: t('nav.wineries'), to: '/wineries' },
-              { label: t('nav.forProducers'), to: '/voor-producenten' },
+              { label: t('nav.wineries'), to: '/producers' },
+              { label: t('nav.forProducers'), to: '/for-producers' },
               { label: t('nav.contact'), to: '/contact' },
             ].map(link => (
               <Link
@@ -121,8 +121,8 @@ export default function Header() {
         >
           {[
             { label: t('nav.offers'), to: '/partijen' },
-            { label: t('nav.wineries'), to: '/wineries' },
-            { label: t('nav.forProducers'), to: '/voor-producenten' },
+            { label: t('nav.wineries'), to: '/producers' },
+            { label: t('nav.forProducers'), to: '/for-producers' },
             { label: t('nav.contact'), to: '/contact' },
           ].map(link => (
             <Link
