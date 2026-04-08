@@ -3,48 +3,31 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: {
-          DEFAULT: '#BE185D',
-          light: '#FFB1C3',
-          container: '#FFE4EE',
-          on: '#FFFFFF',
+        page: '#0D0F1E',
+        card: '#161829',
+        sidebar: '#12142A',
+        primary: '#E91E8C',
+        gold: '#D4A017',
+        text: {
+          DEFAULT: '#F0EBE3',
+          sub: 'rgba(240,235,227,0.65)',
+          muted: 'rgba(240,235,227,0.40)',
         },
-        secondary: {
-          DEFAULT: '#EEC200',
-          light: '#FFE083',
-          container: '#FFF8DC',
-          on: '#1A1200',
-        },
-        surface: {
-          DEFAULT: '#FDF8F2',
-          low: '#F5EDE3',
-          high: '#EDE0D4',
-          highest: '#E0D0C0',
-          lowest: '#070E1D',
-        },
-        burgundy: '#6B1A2A',
-        cream: '#FDF8F2',
-        navy: '#070E1D',
-        outline: '#C4A882',
+        outline: 'rgba(255,255,255,0.08)',
       },
       fontFamily: {
         display: ['"Noto Serif"', 'Georgia', 'serif'],
         body: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
       },
-      borderRadius: {
-        xl: '0.75rem',
+      boxShadow: {
+        card: '0 8px 32px rgba(0,0,0,0.4)',
+        glow: '0 0 24px rgba(233,30,140,0.25)',
+        'gold-glow': '0 0 24px rgba(212,160,23,0.3)',
       },
       backdropBlur: {
-        md: '12px',
-      },
-      boxShadow: {
-        ambient: '0 20px 40px rgba(7, 14, 29, 0.4)',
-        card: '0 8px 24px rgba(107, 26, 42, 0.12)',
-      },
-      letterSpacing: {
-        tight: '-0.02em',
+        nav: '12px',
       },
     },
   },
   plugins: [],
-};
+}

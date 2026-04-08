@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useTranslation } from 'react-i18next'
 import LanguageSwitcher from './LanguageSwitcher'
+import { Menu, X } from 'lucide-react'
 
 export default function Header() {
   const { user, profile, signOut } = useAuth()
@@ -20,6 +21,7 @@ export default function Header() {
   const handleSignOut = async () => {
     await signOut()
     navigate('/')
+    setMobileOpen(false)
   }
 
   const getDashboardPath = () => {
@@ -30,33 +32,39 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 glass-nav transition-shadow duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300 ${
         scrolled ? 'shadow-card' : ''
       }`}
+      style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
-            <span className="font-display text-xl font-bold text-burgundy tracking-tight">
+          <Link to="/" className="flex items-center gap-2 hover:opacity-90 transition-opacity">
+            <span className="font-display text-xl font-bold" style={{ color: '#E91E8C' }}>
               Cellar2Table
             </span>
           </Link>
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-1">
-            <Link to="/partijen" className="font-body text-sm font-medium text-navy/70 hover:text-burgundy px-3 py-2 transition-colors">
-              {t('nav.offers')}
-            </Link>
-            <Link to="/wineries" className="font-body text-sm font-medium text-navy/70 hover:text-burgundy px-3 py-2 transition-colors">
-              {t('nav.wineries')}
-            </Link>
-            <Link to="/voor-producenten" className="font-body text-sm font-medium text-navy/70 hover:text-burgundy px-3 py-2 transition-colors">
-              {t('nav.forProducers')}
-            </Link>
-            <Link to="/contact" className="font-body text-sm font-medium text-navy/70 hover:text-burgundy px-3 py-2 transition-colors">
-              {t('nav.contact')}
-            </Link>
+            {[
+              { label: t('nav.offers'), to: '/partijen' },
+              { label: t('nav.wineries'), to: '/wineries' },
+              { label: t('nav.forProducers'), to: '/voor-producenten' },
+              { label: t('nav.contact'), to: '/contact' },
+            ].map(link => (
+              <Link
+                key={link.to}
+                to={link.to}
+                className="font-body text-sm font-medium px-3 py-2 rounded-lg transition-colors"
+                style={{ color: 'rgba(240,235,227,0.65)' }}
+                onMouseEnter={e => (e.currentTarget.style.color = '#F0EBE3')}
+                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(240,235,227,0.65)')}
+              >
+                {link.label}
+              </Link>
+            ))}
           </nav>
 
           {/* Right side */}
@@ -64,7 +72,11 @@ export default function Header() {
             <LanguageSwitcher />
             {user ? (
               <div className="flex items-center gap-3">
-                <Link to={getDashboardPath()} className="font-body text-sm font-medium text-burgundy hover:text-primary transition-colors">
+                <Link
+                  to={getDashboardPath()}
+                  className="font-body text-sm font-medium transition-colors"
+                  style={{ color: '#D4A017' }}
+                >
                   {t('nav.dashboard')}
                 </Link>
                 <button onClick={handleSignOut} className="btn-ghost text-sm py-2 px-4">
@@ -73,7 +85,13 @@ export default function Header() {
               </div>
             ) : (
               <>
-                <Link to="/login" className="font-body text-sm font-medium text-navy/70 hover:text-burgundy px-3 py-2 transition-colors">
+                <Link
+                  to="/login"
+                  className="font-body text-sm font-medium px-3 py-2 transition-colors"
+                  style={{ color: 'rgba(240,235,227,0.65)' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = '#F0EBE3')}
+                  onMouseLeave={e => (e.currentTarget.style.color = 'rgba(240,235,227,0.65)')}
+                >
                   {t('nav.login')}
                 </Link>
                 <Link to="/register" className="btn-gold text-sm py-2 px-5">
@@ -85,34 +103,48 @@ export default function Header() {
 
           {/* Mobile hamburger */}
           <button
-            className="md:hidden p-2 text-navy/70 hover:text-burgundy transition-colors"
+            className="md:hidden p-2 rounded-lg transition-colors"
+            style={{ color: 'rgba(240,235,227,0.70)' }}
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Menu"
           >
-            <div className="w-5 h-0.5 bg-current mb-1 transition-all"></div>
-            <div className="w-5 h-0.5 bg-current mb-1 transition-all"></div>
-            <div className="w-5 h-0.5 bg-current transition-all"></div>
+            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </div>
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden glass-nav border-t border-outline/10 px-4 py-4 space-y-2">
-          <Link to="/partijen" onClick={() => setMobileOpen(false)} className="block font-body text-sm font-medium text-navy/70 py-2">{t('nav.offers')}</Link>
-          <Link to="/wineries" onClick={() => setMobileOpen(false)} className="block font-body text-sm font-medium text-navy/70 py-2">{t('nav.wineries')}</Link>
-          <Link to="/voor-producenten" onClick={() => setMobileOpen(false)} className="block font-body text-sm font-medium text-navy/70 py-2">{t('nav.forProducers')}</Link>
-          <Link to="/contact" onClick={() => setMobileOpen(false)} className="block font-body text-sm font-medium text-navy/70 py-2">{t('nav.contact')}</Link>
-          <div className="pt-2 flex items-center gap-3">
+        <div
+          className="md:hidden px-4 py-4 space-y-1"
+          style={{ background: '#12142A', borderTop: '1px solid rgba(255,255,255,0.06)' }}
+        >
+          {[
+            { label: t('nav.offers'), to: '/partijen' },
+            { label: t('nav.wineries'), to: '/wineries' },
+            { label: t('nav.forProducers'), to: '/voor-producenten' },
+            { label: t('nav.contact'), to: '/contact' },
+          ].map(link => (
+            <Link
+              key={link.to}
+              to={link.to}
+              onClick={() => setMobileOpen(false)}
+              className="block font-body text-sm py-2.5 px-3 rounded-lg transition-colors"
+              style={{ color: 'rgba(240,235,227,0.70)' }}
+            >
+              {link.label}
+            </Link>
+          ))}
+          <div className="pt-3 flex items-center gap-3" style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
             <LanguageSwitcher />
             {user ? (
               <>
-                <Link to={getDashboardPath()} onClick={() => setMobileOpen(false)} className="font-body text-sm text-burgundy">{t('nav.dashboard')}</Link>
-                <button onClick={handleSignOut} className="font-body text-sm text-navy/60">{t('nav.logout')}</button>
+                <Link to={getDashboardPath()} onClick={() => setMobileOpen(false)} className="font-body text-sm" style={{ color: '#D4A017' }}>{t('nav.dashboard')}</Link>
+                <button onClick={handleSignOut} className="font-body text-sm" style={{ color: 'rgba(240,235,227,0.50)' }}>{t('nav.logout')}</button>
               </>
             ) : (
               <>
-                <Link to="/login" onClick={() => setMobileOpen(false)} className="font-body text-sm text-navy/70">{t('nav.login')}</Link>
+                <Link to="/login" onClick={() => setMobileOpen(false)} className="font-body text-sm" style={{ color: 'rgba(240,235,227,0.70)' }}>{t('nav.login')}</Link>
                 <Link to="/register" onClick={() => setMobileOpen(false)} className="btn-gold text-sm py-1.5 px-4">{t('nav.register')}</Link>
               </>
             )}

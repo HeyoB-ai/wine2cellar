@@ -46,11 +46,11 @@ export default function RegisterPage() {
 
   if (success) {
     return (
-      <div className="min-h-screen bg-cream flex items-center justify-center px-4 pt-16">
+      <div className="min-h-screen flex items-center justify-center px-4 pt-16" style={{ background: '#0D0F1E' }}>
         <div className="text-center max-w-md">
-          <CheckCircle2 className="w-16 h-16 text-secondary mx-auto mb-6" />
-          <h2 className="font-display text-3xl text-navy mb-3">{t('auth.register.success_title')}</h2>
-          <p className="font-body text-navy/60 mb-8">{t('auth.register.success_text', { email })}</p>
+          <CheckCircle2 className="w-16 h-16 mx-auto mb-6" style={{ color: '#D4A017' }} />
+          <h2 className="font-display text-3xl mb-3" style={{ color: '#F0EBE3' }}>{t('auth.register.success_title')}</h2>
+          <p className="font-body mb-8" style={{ color: 'rgba(240,235,227,0.55)' }}>{t('auth.register.success_text', { email })}</p>
           <Link to="/login" className="btn-gold">{t('auth.register.success_btn')}</Link>
         </div>
       </div>
@@ -58,75 +58,77 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-cream flex items-center justify-center px-4 py-16">
+    <div className="min-h-screen flex items-center justify-center px-4 py-16" style={{ background: '#0D0F1E' }}>
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <Link to="/" className="font-display text-3xl font-bold text-burgundy block mb-4">
+          <Link to="/" className="font-display text-3xl font-bold block mb-4" style={{ color: '#E91E8C' }}>
             Cellar2Table
           </Link>
-          <h1 className="font-display text-2xl text-navy mb-2">{t('auth.register.title')}</h1>
-          <p className="font-body text-sm text-navy/50">{t('auth.register.step', { step })}</p>
+          <h1 className="font-display text-2xl mb-2" style={{ color: '#F0EBE3' }}>{t('auth.register.title')}</h1>
+          <p className="font-body text-sm" style={{ color: 'rgba(240,235,227,0.45)' }}>{t('auth.register.step', { step })}</p>
         </div>
 
-        <div className="bg-surface-low rounded-2xl p-8 shadow-ambient">
+        <div className="rounded-2xl p-8" style={{ background: '#161829', border: '1px solid rgba(255,255,255,0.06)', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
           {step === 1 ? (
             <div>
-              <h2 className="font-display text-xl text-navy mb-6">{t('auth.register.iam')}</h2>
+              <h2 className="font-display text-xl mb-6" style={{ color: '#F0EBE3' }}>{t('auth.register.iam')}</h2>
               <div className="grid grid-cols-2 gap-4 mb-6">
                 <button
                   onClick={() => setRole('afnemer')}
-                  className={`card p-5 text-left transition-all border-2 ${
-                    role === 'afnemer'
-                      ? 'bg-primary-container border-primary'
-                      : 'border-transparent hover:bg-surface-high'
-                  }`}
+                  className="card p-5 text-left transition-all"
+                  style={{
+                    border: role === 'afnemer' ? '2px solid rgba(233,30,140,0.40)' : '2px solid transparent',
+                    background: role === 'afnemer' ? 'rgba(233,30,140,0.08)' : '#161829',
+                  }}
                 >
-                  <Truck className={`w-8 h-8 mb-3 ${role === 'afnemer' ? 'text-primary' : 'text-navy/40'}`} />
-                  <p className={`font-body font-semibold text-sm mb-1 ${role === 'afnemer' ? 'text-primary' : 'text-navy'}`}>
+                  <Truck className="w-8 h-8 mb-3" style={{ color: role === 'afnemer' ? '#E91E8C' : 'rgba(240,235,227,0.35)' }} />
+                  <p className="font-body font-semibold text-sm mb-1" style={{ color: role === 'afnemer' ? '#E91E8C' : '#F0EBE3' }}>
                     {t('auth.register.buyer_label')}
                   </p>
-                  <p className="font-body text-xs text-navy/50">{t('auth.register.buyer_desc')}</p>
+                  <p className="font-body text-xs" style={{ color: 'rgba(240,235,227,0.45)' }}>{t('auth.register.buyer_desc')}</p>
                 </button>
                 <button
                   onClick={() => setRole('wijnhuis')}
-                  className={`card p-5 text-left transition-all border-2 ${
-                    role === 'wijnhuis'
-                      ? 'bg-primary-container border-primary'
-                      : 'border-transparent hover:bg-surface-high'
-                  }`}
+                  className="card p-5 text-left transition-all"
+                  style={{
+                    border: role === 'wijnhuis' ? '2px solid rgba(233,30,140,0.40)' : '2px solid transparent',
+                    background: role === 'wijnhuis' ? 'rgba(233,30,140,0.08)' : '#161829',
+                  }}
                 >
-                  <Wine className={`w-8 h-8 mb-3 ${role === 'wijnhuis' ? 'text-primary' : 'text-navy/40'}`} />
-                  <p className={`font-body font-semibold text-sm mb-1 ${role === 'wijnhuis' ? 'text-primary' : 'text-navy'}`}>
+                  <Wine className="w-8 h-8 mb-3" style={{ color: role === 'wijnhuis' ? '#E91E8C' : 'rgba(240,235,227,0.35)' }} />
+                  <p className="font-body font-semibold text-sm mb-1" style={{ color: role === 'wijnhuis' ? '#E91E8C' : '#F0EBE3' }}>
                     {t('auth.register.winery_label')}
                   </p>
-                  <p className="font-body text-xs text-navy/50">{t('auth.register.winery_desc')}</p>
+                  <p className="font-body text-xs" style={{ color: 'rgba(240,235,227,0.45)' }}>{t('auth.register.winery_desc')}</p>
                 </button>
               </div>
 
               {/* Sub-choice for afnemer */}
               {role === 'afnemer' && (
                 <div className="mb-6">
-                  <label className="font-body text-xs font-semibold uppercase tracking-wider text-navy/50 block mb-3">
+                  <label className="font-body text-xs font-semibold uppercase tracking-wider block mb-3" style={{ color: 'rgba(240,235,227,0.45)' }}>
                     {t('auth.register.buyer_type_label')}
                   </label>
                   <div className="grid grid-cols-2 gap-3">
                     <button
                       onClick={() => setBuyerType('particulier')}
-                      className={`px-4 py-3 rounded-xl font-body text-sm transition-all border-2 ${
-                        buyerType === 'particulier'
-                          ? 'border-primary bg-primary-container text-primary'
-                          : 'border-outline/30 text-navy/70 hover:border-outline/60'
-                      }`}
+                      className="px-4 py-3 rounded-xl font-body text-sm transition-all"
+                      style={{
+                        border: buyerType === 'particulier' ? '2px solid rgba(233,30,140,0.40)' : '2px solid rgba(255,255,255,0.10)',
+                        background: buyerType === 'particulier' ? 'rgba(233,30,140,0.08)' : 'transparent',
+                        color: buyerType === 'particulier' ? '#E91E8C' : 'rgba(240,235,227,0.65)',
+                      }}
                     >
                       {t('auth.register.buyer_type_particulier')}
                     </button>
                     <button
                       onClick={() => setBuyerType('horeca')}
-                      className={`px-4 py-3 rounded-xl font-body text-sm transition-all border-2 ${
-                        buyerType === 'horeca'
-                          ? 'border-primary bg-primary-container text-primary'
-                          : 'border-outline/30 text-navy/70 hover:border-outline/60'
-                      }`}
+                      className="px-4 py-3 rounded-xl font-body text-sm transition-all"
+                      style={{
+                        border: buyerType === 'horeca' ? '2px solid rgba(233,30,140,0.40)' : '2px solid rgba(255,255,255,0.10)',
+                        background: buyerType === 'horeca' ? 'rgba(233,30,140,0.08)' : 'transparent',
+                        color: buyerType === 'horeca' ? '#E91E8C' : 'rgba(240,235,227,0.65)',
+                      }}
                     >
                       {t('auth.register.buyer_type_horeca')}
                     </button>
@@ -138,29 +140,30 @@ export default function RegisterPage() {
               {role === 'wijnhuis' && (
                 <div className="mb-6 space-y-6">
                   <div>
-                    <label className="font-body text-xs font-semibold uppercase tracking-wider text-navy/50 block mb-1">
+                    <label className="font-body text-xs font-semibold uppercase tracking-wider block mb-1" style={{ color: 'rgba(240,235,227,0.45)' }}>
                       {t('auth.register.company_name')}
                     </label>
                     <input
                       value={companyName}
                       onChange={e => setCompanyName(e.target.value)}
-                      className="input-underline"
+                      className="input-field"
                       placeholder="Château Beaulieu"
                     />
                   </div>
                   <div>
-                    <label className="font-body text-xs font-semibold uppercase tracking-wider text-navy/50 block mb-1">
+                    <label className="font-body text-xs font-semibold uppercase tracking-wider block mb-1" style={{ color: 'rgba(240,235,227,0.45)' }}>
                       {t('producer_detail.country')}
                     </label>
                     <select
                       value={wineryCountry}
                       onChange={e => setWineryCountry(e.target.value)}
-                      className="input-underline"
+                      className="input-field"
+                      style={{ background: 'transparent', cursor: 'pointer' }}
                     >
-                      <option value="Frankrijk">Frankrijk</option>
-                      <option value="Italië">Italië</option>
-                      <option value="Duitsland">Duitsland</option>
-                      <option value="Spanje">Spanje</option>
+                      <option value="Frankrijk" style={{ background: '#161829' }}>Frankrijk</option>
+                      <option value="Italië" style={{ background: '#161829' }}>Italië</option>
+                      <option value="Duitsland" style={{ background: '#161829' }}>Duitsland</option>
+                      <option value="Spanje" style={{ background: '#161829' }}>Spanje</option>
                     </select>
                   </div>
                 </div>
@@ -173,38 +176,38 @@ export default function RegisterPage() {
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
               {error && (
-                <div className="flex items-center gap-2.5 bg-primary-container rounded-lg px-4 py-3">
-                  <AlertCircle className="w-4 h-4 text-primary shrink-0" />
-                  <p className="font-body text-sm text-primary">{error}</p>
+                <div className="flex items-center gap-2.5 rounded-lg px-4 py-3" style={{ background: 'rgba(233,30,140,0.15)', border: '1px solid rgba(233,30,140,0.25)' }}>
+                  <AlertCircle className="w-4 h-4 shrink-0" style={{ color: '#E91E8C' }} />
+                  <p className="font-body text-sm" style={{ color: '#E91E8C' }}>{error}</p>
                 </div>
               )}
               <div>
-                <label className="font-body text-xs font-semibold uppercase tracking-wider text-navy/50 block mb-1">
+                <label className="font-body text-xs font-semibold uppercase tracking-wider block mb-1" style={{ color: 'rgba(240,235,227,0.45)' }}>
                   {t('auth.register.full_name')}
                 </label>
-                <input value={fullName} onChange={e => setFullName(e.target.value)} className="input-underline" placeholder="Jan de Vries" required />
+                <input value={fullName} onChange={e => setFullName(e.target.value)} className="input-field" placeholder="Jan de Vries" required />
               </div>
               <div>
-                <label className="font-body text-xs font-semibold uppercase tracking-wider text-navy/50 block mb-1">
+                <label className="font-body text-xs font-semibold uppercase tracking-wider block mb-1" style={{ color: 'rgba(240,235,227,0.45)' }}>
                   {t('auth.register.email')}
                 </label>
-                <input type="email" value={email} onChange={e => setEmail(e.target.value)} className="input-underline" placeholder="uw@email.nl" required />
+                <input type="email" value={email} onChange={e => setEmail(e.target.value)} className="input-field" placeholder="uw@email.nl" required />
               </div>
               <div>
-                <label className="font-body text-xs font-semibold uppercase tracking-wider text-navy/50 block mb-1">
+                <label className="font-body text-xs font-semibold uppercase tracking-wider block mb-1" style={{ color: 'rgba(240,235,227,0.45)' }}>
                   {t('auth.register.password')}
                 </label>
-                <input type="password" value={password} onChange={e => setPassword(e.target.value)} className="input-underline" placeholder={t('auth.register.password_hint')} minLength={6} required />
+                <input type="password" value={password} onChange={e => setPassword(e.target.value)} className="input-field" placeholder={t('auth.register.password_hint')} minLength={6} required />
               </div>
               {role === 'afnemer' && buyerType === 'horeca' && (
                 <>
                   <div>
-                    <label className="font-body text-xs font-semibold uppercase tracking-wider text-navy/50 block mb-1">KVK-nummer</label>
-                    <input value={companyKvk} onChange={e => setCompanyKvk(e.target.value)} className="input-underline" placeholder="12345678" required />
+                    <label className="font-body text-xs font-semibold uppercase tracking-wider block mb-1" style={{ color: 'rgba(240,235,227,0.45)' }}>KVK-nummer</label>
+                    <input value={companyKvk} onChange={e => setCompanyKvk(e.target.value)} className="input-field" placeholder="12345678" required />
                   </div>
                   <div>
-                    <label className="font-body text-xs font-semibold uppercase tracking-wider text-navy/50 block mb-1">Telefoonnummer</label>
-                    <input type="tel" value={phone} onChange={e => setPhone(e.target.value)} className="input-underline" placeholder="+31 6 12345678" required />
+                    <label className="font-body text-xs font-semibold uppercase tracking-wider block mb-1" style={{ color: 'rgba(240,235,227,0.45)' }}>Telefoonnummer</label>
+                    <input type="tel" value={phone} onChange={e => setPhone(e.target.value)} className="input-field" placeholder="+31 6 12345678" required />
                   </div>
                 </>
               )}
@@ -218,9 +221,9 @@ export default function RegisterPage() {
               </div>
             </form>
           )}
-          <p className="font-body text-center text-sm text-navy/50 mt-6">
+          <p className="font-body text-center text-sm mt-6" style={{ color: 'rgba(240,235,227,0.45)' }}>
             {t('auth.register.has_account')}{' '}
-            <Link to="/login" className="text-primary font-semibold hover:underline">{t('auth.register.login_link')}</Link>
+            <Link to="/login" className="font-semibold" style={{ color: '#E91E8C' }}>{t('auth.register.login_link')}</Link>
           </p>
         </div>
       </div>

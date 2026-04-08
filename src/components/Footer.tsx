@@ -6,22 +6,30 @@ export default function Footer() {
   const { t } = useTranslation()
 
   return (
-    <footer className="bg-surface-high">
+    <footer style={{ background: '#12142A', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="md:col-span-2">
-            <span className="font-display text-2xl font-bold text-burgundy block mb-3">
+            <span className="font-display text-2xl font-bold block mb-3" style={{ color: '#E91E8C' }}>
               Cellar2Table
             </span>
-            <p className="font-body text-sm text-navy/60 max-w-sm leading-relaxed">
+            <p className="font-body text-sm leading-relaxed max-w-sm" style={{ color: 'rgba(240,235,227,0.55)' }}>
               {t('footer.tagline')}
             </p>
             <div className="flex gap-3 mt-5">
-              <a href="mailto:info@cellar2table.eu" className="w-8 h-8 rounded-full bg-surface-highest flex items-center justify-center text-navy/50 hover:text-burgundy hover:bg-primary-container transition-colors">
+              <a
+                href="mailto:info@cellar2table.eu"
+                className="w-8 h-8 rounded-lg flex items-center justify-center transition-colors"
+                style={{ background: 'rgba(255,255,255,0.06)', color: 'rgba(240,235,227,0.50)' }}
+              >
                 <Mail size={14} />
               </a>
-              <a href="#" className="w-8 h-8 rounded-full bg-surface-highest flex items-center justify-center text-navy/50 hover:text-burgundy hover:bg-primary-container transition-colors">
+              <a
+                href="#"
+                className="w-8 h-8 rounded-lg flex items-center justify-center transition-colors"
+                style={{ background: 'rgba(255,255,255,0.06)', color: 'rgba(240,235,227,0.50)' }}
+              >
                 <Globe size={14} />
               </a>
             </div>
@@ -29,8 +37,8 @@ export default function Footer() {
 
           {/* Nav */}
           <div>
-            <h4 className="font-body text-xs font-semibold uppercase tracking-widest text-primary mb-4">{t('footer.nav_title')}</h4>
-            <ul className="space-y-2">
+            <h4 className="section-label mb-4">{t('footer.nav_title')}</h4>
+            <ul className="space-y-2.5">
               {[
                 { label: t('nav.offers'), to: '/partijen' },
                 { label: t('nav.wineries'), to: '/wineries' },
@@ -38,7 +46,13 @@ export default function Footer() {
                 { label: t('nav.contact'), to: '/contact' },
               ].map(link => (
                 <li key={link.to}>
-                  <Link to={link.to} className="font-body text-sm text-navy/60 hover:text-burgundy transition-colors">
+                  <Link
+                    to={link.to}
+                    className="font-body text-sm transition-colors"
+                    style={{ color: 'rgba(240,235,227,0.55)' }}
+                    onMouseEnter={e => (e.currentTarget.style.color = '#D4A017')}
+                    onMouseLeave={e => (e.currentTarget.style.color = 'rgba(240,235,227,0.55)')}
+                  >
                     {link.label}
                   </Link>
                 </li>
@@ -48,17 +62,49 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="font-body text-xs font-semibold uppercase tracking-widest text-primary mb-4">{t('footer.contact_title')}</h4>
-            <ul className="space-y-2">
-              <li><a href="mailto:info@cellar2table.eu" className="font-body text-sm text-navy/60 hover:text-burgundy transition-colors">info@cellar2table.eu</a></li>
-              <li><Link to="/privacy" className="font-body text-sm text-navy/60 hover:text-burgundy transition-colors">{t('footer.privacy')}</Link></li>
-              <li><Link to="/terms" className="font-body text-sm text-navy/60 hover:text-burgundy transition-colors">{t('footer.terms')}</Link></li>
+            <h4 className="section-label mb-4">{t('footer.contact_title')}</h4>
+            <ul className="space-y-2.5">
+              <li>
+                <a
+                  href="mailto:info@cellar2table.eu"
+                  className="font-body text-sm transition-colors"
+                  style={{ color: 'rgba(240,235,227,0.55)' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = '#D4A017')}
+                  onMouseLeave={e => (e.currentTarget.style.color = 'rgba(240,235,227,0.55)')}
+                >
+                  info@cellar2table.eu
+                </a>
+              </li>
+              <li>
+                <Link
+                  to="/privacy"
+                  className="font-body text-sm transition-colors"
+                  style={{ color: 'rgba(240,235,227,0.55)' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = '#D4A017')}
+                  onMouseLeave={e => (e.currentTarget.style.color = 'rgba(240,235,227,0.55)')}
+                >
+                  {t('footer.privacy')}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/terms"
+                  className="font-body text-sm transition-colors"
+                  style={{ color: 'rgba(240,235,227,0.55)' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = '#D4A017')}
+                  onMouseLeave={e => (e.currentTarget.style.color = 'rgba(240,235,227,0.55)')}
+                >
+                  {t('footer.terms')}
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
 
-        <div className="mt-12 pt-6 bg-surface-highest/30 rounded-xl px-6 py-4">
-          <p className="font-body text-xs text-navy/40 text-center">{t('footer.copyright')}</p>
+        <div className="mt-12 pt-6" style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
+          <p className="font-body text-xs text-center" style={{ color: 'rgba(240,235,227,0.30)' }}>
+            {t('footer.copyright')}
+          </p>
         </div>
       </div>
     </footer>
